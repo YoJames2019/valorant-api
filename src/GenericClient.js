@@ -185,11 +185,12 @@ class GenericClient {
     return await this.fetch(`/parties/v1/parties/${partyId}/makecustomgame`, 'glz', 'post');
   }
 
-  async setCustomGameSettings(partyId, map = 'Ascent', mode = '/Game/GameModes/Bomb/BombGameMode.BombGameMode_C', server = 'aresriot.aws-rclusterprod-use1-1.na-gp-ashburn-1') {
+  async setCustomGameSettings(partyId, map = 'Ascent', mode = '/Game/GameModes/Bomb/BombGameMode.BombGameMode_C', server = 'aresriot.aws-rclusterprod-use1-1.na-gp-ashburn-1', rules = {}) {
     return await this.fetch(`/parties/v1/parties/${partyId}/customgamesettings`, 'glz', 'post', {
       'map': `/Game/Maps/${map}/${map}`,
       'Mode': mode,
-      'GamePod': server
+      'GamePod': server,
+      'GameRules': rules
     });
   }
 
@@ -199,6 +200,10 @@ class GenericClient {
 
   async leaveParty(partyId) {
     return await this.fetch(`/parties/v1/players/${this.puuid}/leaveparty/${partyId}`, 'glz', 'post');
+  }
+
+  async inviteToPartyByDisplayName(partyId, username, tag) {
+    return await this.fetch(`/parties/v1/parties/${partyId}/invites/name/${username}/tag/${tag}`, 'glz', 'post')
   }
 
   async pregameFetchPlayer(puuid) {
