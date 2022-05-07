@@ -226,6 +226,7 @@ class GenericClient {
     partyId,
     map = "Ascent",
     rules = {},
+    useBots = "false",
     mode = "/Game/GameModes/Bomb/BombGameMode.BombGameMode_C",
     server = "aresriot.aws-rclusterprod-use1-1.na-gp-ashburn-1"
   ) {
@@ -236,9 +237,18 @@ class GenericClient {
       {
         map: `/Game/Maps/${map}/${map}`,
         Mode: mode,
+        UseBots: useBots,
         GamePod: server,
         GameRules: rules,
       }
+    );
+  }
+
+  async startCustomGame(partyId) {
+    return this.fetch(
+      `/parties/v1/parties/${partyId}/startcustomgame`,
+      "glz",
+      "POST"
     );
   }
 
