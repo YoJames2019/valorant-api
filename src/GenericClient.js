@@ -16,7 +16,6 @@ class GenericClient {
 
       if (endpointType == "local") {
         axiosEndpoint = `${this._lockfile.protocol}://127.0.0.1:${this._lockfile.port}${endpoint}`;
-        axiosHeaders = this.localHeaders;
         axiosOptions = {
           method: method.toUpperCase(),
           headers: this.localHeaders,
@@ -65,7 +64,7 @@ class GenericClient {
     } catch (e) {
       if (e.response && e.response.status && e.response.status == 400) {
         await this._buildHeaders();
-        return await this.fetch(endpoint, endpointType);
+        return await this.fetch(endpoint, endpointType, method, data);
       } else {
         throw new Error(e);
       }
