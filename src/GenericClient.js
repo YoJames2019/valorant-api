@@ -252,6 +252,14 @@ class GenericClient {
     );
   }
 
+  async partyBalance(partyId) {
+    return await this.fetch(
+      `/parties/v1/parties/${partyId}/balance`,
+      "glz",
+      "POST"
+    );
+  }
+
   async joinParty(partyId) {
     return await this.fetch(
       `/parties/v1/players/${this.puuid}/joinparty/${partyId}`,
