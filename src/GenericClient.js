@@ -252,11 +252,17 @@ class GenericClient {
 
   //[Party_ChangeTeamInCustomGame] POST https://glz-ap-1.ap.a.pvp.net/parties/v1/parties/{party_id}/customgamemembership/
   //{TeamTwo, TeamOne, TeamSpectate, TeamOneCoaches, TeamTwoCoaches}
-  async switchCustomTeam(partyId, teamName) {
-    return this.fetch(
+  //body: {"playerToPutOnTeam": puuid}
+  async movePlayerToCustomTeam(partyId, teamName, puuid) {
+    puuid = puuid ? puuid : this.puuid;
+
+    return await this.fetch(
       `/parties/v1/parties/${partyId}/customgamemembership/${teamName}`,
       "glz",
-      "POST"
+      "post",
+      {
+        playerToPutOnTeam: puuid,
+      }
     );
   }
 
